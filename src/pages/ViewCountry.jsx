@@ -193,7 +193,7 @@ function ViewCountry() {
                         onClick={() =>
                           handlerClickBorder(convertCodeCountry(item))
                         }
-                        className={`px-2 py-1 mx-1 my-2 text-sm font-light shadow-md     ${
+                        className={`px-2 py-1 mx-1 my-2 text-sm font-light shadow-md hover:scale-110 transition-all  ${
                           darkMode
                             ? `text-slate-300 bg-darkmode-element-DarkBlue shadow-black`
                             : ` text-lightmode-text-Very-Dark-Blue bg-lightmode-background-Very-Light-Gray shadow-lightmode-input-Dark-Gray`
