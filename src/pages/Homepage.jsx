@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import ListCountry from "../components/ListCountry";
-import Pagination from "../components/pagination";
+import Pagination from "../components/Pagination";
 import useDarkMode from "../hook/useDarkMode";
 import useFetchData from "../hook/useFetchData";
 
