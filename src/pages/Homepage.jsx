@@ -1,56 +1,25 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import Navbar from "../components/Navbar";
 import ListCountry from "../components/ListCountry";
+import Pagination from "../components/pagination";
 import useDarkMode from "../hook/useDarkMode";
+import useFetchData from "../hook/useFetchData";
 
 function Homepage() {
-  const [countries, setCountries] = useState([]);
-  const [countryFilter, setCountryFilter] = useState([]);
-  const [filterOption, setFilterOption] = useState("");
-  const [searchText, setSearchText] = useState("");
-  const countriesList = countryFilter.length > 0 ? countryFilter : countries;
   const { darkMode, setDarkMode } = useDarkMode();
+  const {
+    filterOption,
+    setFilterOption,
+    searchText,
+    setSearchText,
+    currentItems,
+    currentPage,
+    totalPages,
+    handlerPageChange,
+  } = useFetchData();
 
-  const getCountry = async () => {
-    try {
-      const result = await axios.get(
-        `https://restcountries.com/v3.1/independent?status=true`
-      );
-      setCountries(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getCountry();
-  }, []);
-
-  const filterByRegion = () => {
-    const newList = countries.filter((item) => item.region === filterOption);
-    setCountryFilter(newList);
-  };
-
-  useEffect(() => {
-    filterByRegion();
-  }, [filterOption]);
-
-  const filterBySearch = () => {
-    const newList = countries.filter(
-      (item) =>
-        item.name.common
-          .toLocaleLowerCase()
-          .includes(searchText.toLocaleLowerCase()) ||
-        item.name.official
-          .toLocaleLowerCase()
-          .includes(searchText.toLocaleLowerCase())
-    );
-    setCountryFilter(newList);
-  };
-
-  useEffect(() => {
-    filterBySearch();
-  }, [searchText]);
+  const countriesList = currentItems;
+  // console.log(countriesList);
 
   return (
     <>
@@ -77,6 +46,11 @@ function Homepage() {
           setFilterOption={setFilterOption}
           setSearchText={setSearchText}
           searchText={searchText}
+        />
+        <Pagination
+          handlerPageChange={handlerPageChange}
+          currentPage={currentPage}
+          totalPages={totalPages}
         />
       </section>
     </>
